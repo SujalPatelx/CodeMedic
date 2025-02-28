@@ -1,4 +1,5 @@
-﻿const { default: app } = require("./app");
+﻿import { default as app } from "./app.js";
+
 
 app.listen('3000', () =>
 {
