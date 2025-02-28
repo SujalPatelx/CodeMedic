@@ -1,12 +1,13 @@
 import React from 'react'
-import   { CodeEditor } from './components/Editor'
+import { CodeEditor } from './components/Editor'
 
-export const App = () => {
+export const App = () =>
+{
   return (
- <>
- <CodeEditor />
- </>
+    <>
+      <CodeEditor />
+    </>
   )
 }
 
- 
+
