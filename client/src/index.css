@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+.padding{
+    @apply xl:px-20  lg:px-10 lg:py-5 md:px-5 md:py-5 sm:px-5 sm:py-5; 
+}
+.editor {
+    @apply border border-4 rounded-lg p-1; 
+}

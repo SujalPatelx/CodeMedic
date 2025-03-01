@@ -17,9 +17,9 @@ const openai = new OpenAI({
 
 app.post("/debug", async (req, res) =>
 {
-    const { code } = req.body;
+    const { code, inputError } = req.body;
     if (!code) return res.status(400).json({ error: "No code provided" });
-
+    console.log(inputError);
     try
     {
         const completion = await openai.chat.completions.create({
@@ -27,11 +27,11 @@ app.post("/debug", async (req, res) =>
             messages: [
                 {
                     role: "system",
-                    content: "You are a code debugging assistant. If the inputted code contains errors, respond ONLY with the corrected code and include comments explaining the changes made. If the code is correct, provide an explanation of how it works. Do not include markdown code block syntax or any other formatting."
+                    content: "You are a highly skilled code debugging assistant. Your task is to analyze the given code, identify any errors, and provide a corrected version. Return only the fixed code with little informative comments explaining the changes where necessary. Ensure that the logic and structure of the original code are preserved. Do not include any explanations, markdown syntax, or extra formatting—just the corrected code with brief inline comments where needed."
                 },
                 {
                     role: "user",
-                    content: `Fix this code:\n\n${code}`
+                    content: `Fix this code:\n\n${code} this the ${inputError}`
                 }
             ],
         });
@@ -97,7 +97,7 @@ app.post("/comment", async (req, res) =>
             messages: [
                 {
                     role: "system",
-                    content: "You are a code debugging and explainer assistant. If the inputted code contains errors, respond  the corrected code and include comments explaining the changes made. If the code is correct, provide an explanation of how it works. Do not include markdown code block syntax or any other formatting."
+                    content: "You are a code commenting assistant. Your task is to analyze the given code and insert meaningful comments before key logic sections, functions, and important steps. Ensure that the comments explain the purpose of each section, making the code easier to understand. Use clear and concise language for the comments. Maintain the original structure of the code while adding explanations. Do not alter the logic of the code. Return the commented code as output"
                 },
                 {
                     role: "user",
@@ -106,12 +106,12 @@ app.post("/comment", async (req, res) =>
             ],
         });
 
-        let explanation = completion.choices[0].message.content;
-        explanation = explanation.replace(/^```[\w]*\n?/, '');
-        explanation = explanation.replace(/```$/, '');
-        explanation = explanation.trim();
-        console.log(explanation);
-        res.status(200).json({ explanation });
+        let commented = completion.choices[0].message.content;
+        commented = commented.replace(/^```[\w]*\n?/, '');
+        commented = commented.replace(/```$/, '');
+        commented = commented.trim();
+        console.log(commented);
+        res.status(200).json({ commented });
     } catch (error)
     {
         console.error('Error:', error);

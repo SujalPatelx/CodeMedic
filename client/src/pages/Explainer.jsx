@@ -31,12 +31,12 @@ const Explainer = () => {
     };
   
     return (
-      <div className="p-4 bg-gray-900 text-white min-h-screen">
+      <div className="padding p-4 bg-gray-900 text-white min-h-screen">
         <h1 className="text-2xl font-bold mb-4">AI Code Explainer</h1>
         <div className="space-y-4">
           <div>
             <h2 className="text-lg mb-2">Input Code:</h2>
-            <Editor 
+            <Editor className='editor'
               height="300px"
               theme="vs-dark"
               defaultLanguage="javascript"

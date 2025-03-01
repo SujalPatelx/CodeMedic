@@ -19,7 +19,7 @@ const Commenter = () => {
       
       try {
         const res = await axios.post("http://localhost:5000/comment", { code });
-        setOutput(res.data.correctedCode);
+        setOutput(res.data.commented);
       } catch (error) {
         setError(error.response?.data?.error || "Error processing code");
         setOutput("");
@@ -29,12 +29,12 @@ const Commenter = () => {
     };
   
     return (
-      <div className="p-4 bg-gray-900 text-white min-h-screen">
+      <div className="padding p-4 bg-gray-900 text-white min-h-screen">
         <h1 className="text-2xl font-bold mb-4">AI Code Commenter</h1>
         <div className="space-y-4">
           <div>
             <h2 className="text-lg mb-2">Input Code:</h2>
-            <Editor 
+            <Editor className='border-4 rounded-2xl p-1'
               height="300px"
               theme="vs-dark"
               defaultLanguage="javascript"
@@ -56,7 +56,7 @@ const Commenter = () => {
                 : 'bg-blue-500 hover:bg-blue-600'
             }`}
           >
-            {loading ? 'Debugging...' : 'Debug Code'}
+            {loading ? 'Commenting...' : 'Comment Code'}
           </button>
   
           {error && (
@@ -67,7 +67,7 @@ const Commenter = () => {
   
           {output && (
             <div>
-              <h2 className="text-lg mb-2">Debugged Code:</h2>
+              <h2 className="text-lg mb-2">commented Code:</h2>
               <Editor 
                 height="300px"
                 theme="vs-dark"
