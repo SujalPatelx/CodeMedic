@@ -67,7 +67,7 @@ app.post("/explain", async (req, res) =>
                 },
                 {
                     role: "user",
-                    content: `this code:\n\n${code}`
+                    content: `The following code has encountered an error: ${inputError}. Your task is to analyze the provided error details, identify the necessary corrections, and fix the code while preserving its original logic. Return only the corrected code with minor, informative comments explaining the changes. Do not include any explanations or formatting—just the corrected code.\n\nCode:\n\n${code}`
                 }
             ],
         });
